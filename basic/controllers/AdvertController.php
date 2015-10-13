@@ -15,6 +15,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -76,8 +77,31 @@ class AdvertController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if ($model->user_id == Yii::$app->user->identity->getId()) {
+            $buttons = [
+                Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']),
+                Html::a('Delete', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this advert?',
+                        'method' => 'post',
+                    ],
+                ]),
+            ];
+        } else {
+            $buttons = [
+                Html::button('Add to bookmarks', [
+                    'type' => 'button',
+                    'class' => 'btn btn-info'
+                ])
+            ];
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'buttons' => $buttons,
         ]);
     }
 
@@ -91,12 +115,30 @@ class AdvertController extends Controller
     {
         $model = $this->findModel($id);
 
+        if ($model->user_id !== Yii::$app->user->identity->getId()) {
+            throw new ForbiddenHttpException('You are allowed to update your adverts only.');
+        }
+
+        $catList = ArrayHelper::map(Category::find()->asArray()->all(), 'id', 'name');
+        $subcatList = ArrayHelper::map(Subcategory::find()
+            ->where(['category_id' => $model->category_id])
+            ->asArray()->all(), 'id', 'name');
+        $regionList = ArrayHelper::map(Region::find()->asArray()->all(), 'id', 'name');
+        $cityList = ArrayHelper::map(City::find()
+            ->where(['region_id' => $model->region_id])
+            ->asArray()->all(), 'id', 'name');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('update',
+                [
+                    'model' => $model,
+                    'catList' => $catList,
+                    'subcatList' => $subcatList,
+                    'regionList' => $regionList,
+                    'cityList' => $cityList
+                ]);
         }
     }
 
@@ -108,9 +150,14 @@ class AdvertController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if ($model->user_id !== Yii::$app->user->identity->getId()) {
+            throw new ForbiddenHttpException('You are allowed to delete your adverts only.');
+        }
 
-        return $this->redirect(['index']);
+        $model->delete();
+
+        return $this->redirect(['my-adverts']);
     }
 
     /**
@@ -149,7 +196,7 @@ class AdvertController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->createAdvert()) {
-                return $this->redirect(['index']);
+                return $this->redirect(['my-adverts']);
             }
 
             return $this->render('create', [
@@ -217,5 +264,16 @@ class AdvertController extends Controller
             echo "<option></option>";
         }
         echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+    public function actionMyAdverts()
+    {
+        $searchModel = new AdvertSearch();
+        $dataProvider = $searchModel->getMyAdverts();
+
+        return $this->render('my-adverts', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

@@ -76,28 +76,10 @@ echo '</div>';
 echo '<br>';
 
 echo '<div>';
-//if (Yii::$app->request->get() == null) {
-//    echo Html::submitButton('Search', [
-//        'class' => 'btn btn-success',
-//        'name' => 'search',
-//    ]);
-//} else {
-//    echo Html::a('New Search', [Url::toRoute('advert/index')], ['class' => 'btn btn-success']);
-//}
 echo $submit;
 echo '</div>';
 
-//$a = 'img_' . Yii::$app->user->identity->getId() . '/img_01.PNG';
-//$url = Yii::$app->urlManager->createAbsoluteUrl('img/page_1/img_01.PNG');
-//
-//echo $url;
-//
-//echo '<img src="' . $url . '">';
-
 ActiveForm::end();
-
-//$n = '<span class="glyphicon glyphicon-eye-open"></span>';
-//echo '<button class="glyphicon glyphicon-eye-open">';
 
 echo '<div id="gridVew">';
     echo GridView::widget([

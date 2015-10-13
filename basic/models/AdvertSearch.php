@@ -112,4 +112,17 @@ class AdvertSearch extends Advert
             'views' => 'Views',
         ];
     }
+
+    public function getMyAdverts()
+    {
+        $query = Advert::find()->andFilterWhere([
+            'user_id' => Yii::$app->user->identity->getId(),
+        ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
+    }
 }

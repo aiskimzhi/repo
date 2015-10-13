@@ -39,7 +39,7 @@ $this->title = 'My Account';
 
         <?= Html::a('Create Advert', [Url::toRoute('advert/create')], ['class' => 'btn btn-warning']) ?>
 
-        <?= Html::a('My Adverts', [Url::toRoute('site/index')], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('My Adverts', [Url::toRoute('advert/my-adverts')], ['class' => 'btn btn-info']) ?>
 
         <?= Html::a('My Bookmarks', [Url::toRoute('site/index')], ['class' => 'btn btn-info'])?>
 

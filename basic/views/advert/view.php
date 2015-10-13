@@ -5,42 +5,44 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Advert */
+/* @var $buttons */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Adverts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="advert-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+echo '<div class="advert-view">';
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+echo '<div><h4>' . $model->category->name . ' » ' . $model->subcategory->name . '</h4></div>';
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_id',
-            'region_id',
-            'city_id',
-            'category_id',
-            'subcategory_id',
-            'title',
-            'text:ntext',
-            'price',
-            'created_at',
-            'updated_at',
-            'views',
-        ],
-    ]) ?>
+echo '<h2>' . $model->title . '</h2>';
 
-</div>
+echo '<h4>' . $model->region->name . ', ' . $model->city->name . '</h4>';
+
+$format = 'd M Y, H:i';
+echo 'Last update: ' . date($format, $model->updated_at);
+
+$url = 'img/page_' . $model->id . '/img_01.PNG';
+echo '<div>';
+echo Html::img(Yii::$app->urlManager->createAbsoluteUrl('img/page_' . $model->id . '/img_01.PNG'), []);
+echo '</div>';
+
+echo '<div>';
+echo $model->text;
+echo '</div>';
+
+echo '<p>';
+
+foreach ($buttons as $b) {
+    echo $b . ' ';
+}
+
+//echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+//echo Html::a('Delete', ['delete', 'id' => $model->id], [
+//    'class' => 'btn btn-danger',
+//    'data' => [
+//        'confirm' => 'Are you sure you want to delete this advert?',
+//        'method' => 'post',
+//    ],
+//]);
+echo '</p>';
+
+echo '</div>';

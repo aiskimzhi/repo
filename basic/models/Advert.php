@@ -137,6 +137,7 @@ class Advert extends \yii\db\ActiveRecord
             $advert->price = $this->price;
             $advert->created_at = time();
             $advert->updated_at = time();
+            $advert->views = 0;
             if ($advert->save()) {
                 return $advert;
             }
