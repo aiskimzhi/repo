@@ -27,7 +27,7 @@ $this->title = 'My Account';
     <p>
         <?= Html::a('Update data', [Url::toRoute('user/update-data')], ['class' => 'btn btn-primary']) ?>
 
-        <?= Html::a('Change password', [Url::toRoute('site/index')], ['class' => 'btn btn-success'])?>
+        <?= Html::a('Change password', [Url::toRoute('user/change-password')], ['class' => 'btn btn-primary'])?>
 
         <?= Html::a('Delete account', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',

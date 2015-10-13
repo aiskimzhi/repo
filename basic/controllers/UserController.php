@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ChangePassword;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
@@ -147,6 +148,28 @@ class UserController extends Controller
         else {
             Yii::$app->session->setFlash('error', 'Your data was not changed successfully');
             return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Changes user's password
+     */
+    public function actionChangePassword()
+    {
+        $model = new ChangePassword();
+
+        if ($model->changePassword()) {
+            Yii::$app->session->setFlash('success', 'Your password changed successfully');
+            return $this->redirect('account');
+        } elseif (!$model->changePassword() && empty($_POST)) {
+            return $this->render('change-password', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Password was not changed, try again');
+            return $this->render('change-password', [
                 'model' => $model,
             ]);
         }
