@@ -128,4 +128,27 @@ class UserController extends Controller
             'model' => $this->findModel(Yii::$app->user->identity->getId()),
         ]);
     }
+
+    /**
+     * Updates user's data without showing his ID
+     */
+    public function actionUpdateData()
+    {
+        $model = $this->findModel(Yii::$app->user->identity->getId());
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Your data was changed successfully');
+            return $this->redirect('account');
+        } elseif (!($model->load(Yii::$app->request->post()) && $model->save()) && empty($_POST)) {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('error', 'Your data was not changed successfully');
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
 }

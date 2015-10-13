@@ -25,7 +25,7 @@ $this->title = 'My Account';
     ]) ?>
 
     <p>
-        <?= Html::a('Update data', [Url::toRoute('site/index')], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update data', [Url::toRoute('user/update-data')], ['class' => 'btn btn-primary']) ?>
 
         <?= Html::a('Change password', [Url::toRoute('site/index')], ['class' => 'btn btn-success'])?>
 
