@@ -11,7 +11,9 @@ use Yii;
 use app\models\Advert;
 use app\models\AdvertSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,9 +44,28 @@ class AdvertController extends Controller
         $searchModel = new AdvertSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $catList = ArrayHelper::map(Category::find()->asArray()->all(), 'id', 'name');
+        $subcatList = ArrayHelper::map(Subcategory::find()->asArray()->all(), 'id', 'name');
+        $regionList = ArrayHelper::map(Region::find()->asArray()->all(), 'id', 'name');
+        $cityList = ArrayHelper::map(City::find()->asArray()->all(), 'id', 'name');
+
+        if (Yii::$app->request->get() == null) {
+            $submit = Html::submitButton('Search', [
+                'class' => 'btn btn-success',
+                'name' => 'search',
+            ]);
+        } else {
+            $submit = Html::a('New Search', [Url::toRoute('advert/index')], ['class' => 'btn btn-warning']);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'catList' => $catList,
+            'subcatList' => $subcatList,
+            'regionList' => $regionList,
+            'cityList' => $cityList,
+            'submit' => $submit,
         ]);
     }
 

@@ -58,13 +58,13 @@ class AdvertSearch extends Advert
             return $dataProvider;
         }
 
-        if (Yii::$app->request->get('send') !== null) {
-            if(Yii::$app->request->get('before') !== null) {
+        if (Yii::$app->request->get('search') !== null) {
+            if(Yii::$app->request->get('before') !== '') {
                 $before = strtotime(Yii::$app->request->get('before'));
-            } else{
+            } else {
                 $before = 0;
             }
-            if(Yii::$app->request->get('after') !== null) {
+            if(Yii::$app->request->get('after') !== '') {
                 $after = strtotime(Yii::$app->request->get('after')) + 86399;
             } else {
                 $after = time();
@@ -93,5 +93,23 @@ class AdvertSearch extends Advert
 
 
         return $dataProvider;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'user_id' => 'User ID',
+            'region_id' => 'Choose a region',
+            'city_id' => 'Choose a city',
+            'category_id' => 'Choose a category',
+            'subcategory_id' => 'Choose a subcategory',
+            'title' => 'Title',
+            'text' => 'Text',
+            'price' => 'Price',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'views' => 'Views',
+        ];
     }
 }
