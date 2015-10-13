@@ -64,7 +64,18 @@ AppAsset::register($this);
         <?= AlertWidget::widget() ?>
         <?= $content ?>
     </div>
+
+    <?php
+        echo '<pre>';
+        echo '<b>$_POST: </b>';
+        print_r($_POST);
+        echo '<b>$_GET: </b>';
+        print_r($_GET);
+    ?>
+
 </div>
+
+
 
 <footer class="footer">
     <div class="container">

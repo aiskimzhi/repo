@@ -46,6 +46,8 @@ class AdvertSearch extends Advert
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 10],
+            'sort' => ['defaultOrder' => ['updated_at' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -56,6 +58,23 @@ class AdvertSearch extends Advert
             return $dataProvider;
         }
 
+        if (Yii::$app->request->get('send') !== null) {
+            if(Yii::$app->request->get('before') !== null) {
+                $before = strtotime(Yii::$app->request->get('before'));
+            } else{
+                $before = 0;
+            }
+            if(Yii::$app->request->get('after') !== null) {
+                $after = strtotime(Yii::$app->request->get('after')) + 86399;
+            } else {
+                $after = time();
+            }
+            if ($before <= $after) {
+                $query->andWhere('updated_at BETWEEN ' . $before . ' AND ' . $after);
+            }
+        }
+
+
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
@@ -65,12 +84,13 @@ class AdvertSearch extends Advert
             'subcategory_id' => $this->subcategory_id,
             'price' => $this->price,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'updated_at' => $this->updated_at,
             'views' => $this->views,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'text', $this->text]);
+
 
         return $dataProvider;
     }
