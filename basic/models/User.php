@@ -53,7 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'password' => 'Password',
-            'email' => 'Email',
+            'email' => 'E-mail',
             'skype' => 'Skype',
             'phone' => 'Phone',
             'auth_key' => 'Auth Key',

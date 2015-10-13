@@ -29,10 +29,10 @@ $this->title = 'My Account';
 
         <?= Html::a('Change password', [Url::toRoute('user/change-password')], ['class' => 'btn btn-primary'])?>
 
-        <?= Html::a('Delete account', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+        <?= Html::a('Delete account', ['delete-account'], [
+            'class' => 'btn btn-default',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Are you sure you want to delete your account?',
                 'method' => 'post',
             ],
         ]) ?>

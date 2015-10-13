@@ -144,8 +144,7 @@ class UserController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
-        else {
+        } else {
             Yii::$app->session->setFlash('error', 'Your data was not changed successfully');
             return $this->render('update', [
                 'model' => $model,
@@ -173,5 +172,12 @@ class UserController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionDeleteAccount()
+    {
+        $this->findModel(Yii::$app->user->identity->getId())->delete();
+
+        return $this->redirect(['site/index']);
     }
 }
