@@ -41,6 +41,7 @@ AppAsset::register($this);
         ];
     } else {
         $items = [
+            ['label' => 'My Account', 'url' => ['/user/account']],
             [
                 'label' => 'Logout (' . Yii::$app->user->identity->getFullName() . ')',
                 'url' => ['/site/logout'],
