@@ -11,6 +11,80 @@ $this->title = 'My Yii Application';
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
 
+<!--        --><?php
+//        if (file_exists('img/page_10/img_01.png')) {
+//            $path = 'img/page_10/img_01.png';
+//            $path_two = 'img/page_10/img_2.png';
+//            $w = getimagesize($path)[0];
+//            $h = getimagesize($path)[1];
+//            echo 'W: ' . $w . '<br>';
+//            echo 'H: ' . $h . '<br>';
+//            $persent = 120 / $w;
+//            echo 'persent: ' . $persent . '<br>';
+//            $new_h = floor($h * $persent);
+//            echo 'new_H: ' . $new_h . '<br>';
+//            $a = imagecreatetruecolor(120, $new_h);
+//            $b = imagecreatefrompng($path);
+//            imagecopyresampled($a, $b, 0, 0, 0, 0, 120, $new_h, $w, $h);
+//
+//            imagepng($a);
+//
+//
+//        } else {
+//            echo 'no file found';
+//        }
+//
+//        function resize($id)
+//        {
+//            $path = 'img/page_' . $id . '/img_1.png';
+//            $w = getimagesize($path)[0];
+//            $h = getimagesize($path)[1];
+//            $persent = 120 / $w;
+//            $new_h = floor($h * $persent);
+//        }
+
+//        $str = 'ab10kn';
+//        $substr = substr($str, -4, 2);
+//        var_dump($substr);
+//        $n = intval($substr);
+//        var_dump($n);
+//        $k = $n + 1;
+//        echo $k;
+
+
+        $path = 'img/page_10';
+        $open = opendir($path);
+        $files = readdir($open);
+        echo '<pre>';
+        $scan = scandir($path);
+        print_r(scandir($path));
+        $c = count($scan) - 2;
+        $d = 0 - $c;
+
+        $n = array_splice($scan, 2, $c);
+        print_r($n);
+
+//
+//        $substr = substr($file, -6, 2);
+//        $nn = intval($substr);
+//        var_dump($nn);
+
+//        while ($files == '.') {
+//            echo 'Files: ' . $files;
+//        }
+
+//        $dir = opendir($path);
+//        $count = 0;
+//        while($file = readdir($dir)){
+//            if($file == '.' || $file == '..' || is_dir('path/to/dir' . $file)){
+//                continue;
+//            }
+//            $count++;
+//        }
+//        echo 'Количество файлов: ' . $count;
+
+        ?>
+
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 

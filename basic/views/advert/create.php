@@ -8,6 +8,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Advert */
+/* @var $user app\models\User */
 
 $this->title = 'Create Advert';
 
@@ -15,7 +16,15 @@ echo '<div>';
 
     echo DetailView::widget([
     'model' => $user,
+    'options' => [
+        'width' => '300px',
+    ],
+    'template' => '<tr><td max-width="150px"><strong>{label}</strong> {value}</td></tr>',
     'attributes' => [
+        [
+            'label' => '<h4 class="text-center"><em>Your contacts: </em></h4>',
+            'value' => '',
+        ],
         [
             'label' => 'Phone: ',
             'value' => $user->phone
@@ -28,10 +37,13 @@ echo '<div>';
             'label' => 'E-mail: ',
             'value' => $user->email
         ],
+        [
+            'label' => 'To change your contact information follow the link: <a href="'
+                . Url::toRoute('user/update-data') . '">Update contact information</a>',
+            'value' => '',
+        ],
     ]
 ]);
-
-echo 'To change your contact information follow the link: <a href="' . Url::toRoute('user/update-data') . '">Update contact information</a>';
 
 echo '</div>';
 echo '<br>';
@@ -83,6 +95,10 @@ echo $form->field($model, 'title')->textInput();
 echo $form->field($model, 'text')->textarea(['rows' => 6]);
 
 echo $form->field($model, 'price')->textInput();
+
+$msg = 'You will be able to upload images after you finish creating your advert';
+echo Html::tag('div', $msg, ['class' => 'btn btn-primary']);
+echo '<br><br>';
 
 echo '<div class="form-group">' . Html::submitButton('Create Advert', ['class' => 'btn btn-success']) . '</div>';
 

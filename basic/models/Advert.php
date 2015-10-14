@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Html;
+use yii\web\UploadedFile;
+use yii\base\Model;
 
 /**
  * This is the model class for table "advert".
@@ -29,6 +32,8 @@ use Yii;
  */
 class Advert extends \yii\db\ActiveRecord
 {
+    public $imageFile;
+
     /**
      * @inheritdoc
      */
@@ -47,7 +52,7 @@ class Advert extends \yii\db\ActiveRecord
             [['user_id', 'region_id', 'city_id', 'category_id', 'subcategory_id', 'created_at', 'updated_at', 'views'], 'integer'],
             [['text'], 'string'],
             [['price'], 'number'],
-            [['title'], 'string', 'max' => 255]
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -150,5 +155,32 @@ class Advert extends \yii\db\ActiveRecord
         $advert = Advert::findOne(['id' => $id]);
         $advert->views = $advert->views + 1;
         $advert->save();
+    }
+
+    public function picture($id)
+    {
+        if (file_exists('img/page_' . $id)) {
+            if (count(scandir('img/page_' . $id)) > 2) {
+                return 'img/page_' . $id . '/' . scandir('img/page_' . $id)[2];
+            }
+        }
+        return 'img/default.png';
+    }
+
+    public function renderAllPics($id)
+    {
+        if (file_exists('img/page_' . $id)) {
+            if (count(scandir('img/page_' . $id)) > 2) {
+                $max = count(scandir('img/page_' . $id)) - 2;
+                $pics = array_splice(scandir('img/page_' . $id), 2, $max);
+                return $pics;
+            }
+        }
+        return [];
+    }
+
+    public function deletePic()
+    {
+        unlink('img/page_' . $_GET['id'] . '/' . $_POST['delete']);
     }
 }

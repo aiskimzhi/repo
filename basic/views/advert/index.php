@@ -91,9 +91,12 @@ echo '<div id="gridVew">';
                 'label' => 'image',
                 'format' => 'raw',
                 'value' => function($searchModel) {
-                    $url = 'img/page_' . $searchModel->id . '/img_01.PNG';
-                    return Html::img(Yii::$app->urlManager->createAbsoluteUrl($url));
-                },
+                        return Html::img(Yii::$app->urlManager
+                            ->createAbsoluteUrl($searchModel->picture($searchModel->id)), [
+                            'width' => 120,
+                            'height' => 120
+                        ]);
+                    },
                 'options' => ['style' => 'width: 130px; max-width: 130px;'],
             ],
             [

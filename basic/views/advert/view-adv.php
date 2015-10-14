@@ -34,34 +34,11 @@ echo $model->text;
 echo '</div>';
 
 echo '<p>';
-if ($model->user_id == Yii::$app->user->identity->getId()) {
-    $form = ActiveForm::begin(['id' => 'add-picture', 'options' => ['enctype' => 'multipart/form-data']]);
-
-    echo $form->field($imgModel, 'imageFile')->fileInput(['value' => 'choose']);
-
-    echo Html::submitButton('Add picture', ['class' => 'btn btn-success']);
-
-    ActiveForm::end();
-}
-echo '</p>';
-
-echo '<p>';
-
-if ($model->user_id == Yii::$app->user->identity->getId()) {
-        echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-        echo Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this advert?',
-                'method' => 'post',
-            ],
-        ]);
-} else {
-    $url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $model->id;
-        echo Html::button('Add to bookmarks', [
-            'type' => 'button',
-            'class' => 'btn btn-info',
-            'onclick' => '
+$url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $model->id;
+echo Html::button('Add to bookmarks', [
+    'type' => 'button',
+    'class' => 'btn btn-info',
+    'onclick' => '
                                 $.ajax({
                             url: "' . $url . '",
                             success: function() {
@@ -69,10 +46,7 @@ if ($model->user_id == Yii::$app->user->identity->getId()) {
                             }
                         });
                     ',
-        ]);
-
-}
-
+]);
 echo '</p>';
 
 echo '</div>';

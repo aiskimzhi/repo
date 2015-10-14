@@ -6,6 +6,7 @@ use app\models\Category;
 use app\models\City;
 use app\models\Region;
 use app\models\Subcategory;
+use app\models\UploadForm;
 use app\models\User;
 use app\models\Views;
 use Yii;
@@ -19,6 +20,7 @@ use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AdvertController implements the CRUD actions for Advert model.
@@ -80,51 +82,44 @@ class AdvertController extends Controller
     {
         $model = $this->findModel($id);
 
-        $views = new Views();
-
-        if (!$views->countViews($id)) {
-            if ($model->user_id !== Yii::$app->user->identity->getId()) {
-                $advert = new Advert();
-                $advert->countViews($id);
-                $views->advert_id = $id;
-                $views->user_id = Yii::$app->user->identity->getId();
-                $views->save();
-            }
-        }
-
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-            $buttons = [
-                Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']),
-                Html::a('Delete', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this advert?',
-                        'method' => 'post',
-                    ],
-                ]),
-            ];
-        } else {
-            $url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $id;
-            $buttons = [
-                Html::button('Add to bookmarks', [
-                    'type' => 'button',
-                    'class' => 'btn btn-info',
-                    'onclick' => '
-                                $.ajax({
-                            url: "' . $url . '",
-                            success: function() {
-                                alert("This advert was added to your bookmarks");
-                            }
-                        });
-                    ',
-                ])
-            ];
-        }
+            $imgModel = new UploadForm();
 
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-            'buttons' => $buttons,
-        ]);
+            if (isset($_POST['delete'])) {
+                $model->deletePic();
+            }
+
+            if (Yii::$app->request->isPost) {
+                $imgModel->imageFile = UploadedFile::getInstance($imgModel, 'imageFile');
+                if ($imgModel->upload($id)) {
+                    return $this->render('view-my-advert', [
+                        'model' => $this->findModel($id),
+                        'imgModel' => $imgModel,
+                    ]);
+                }
+            }
+
+            return $this->render('view-my-advert', [
+                'model' => $this->findModel($id),
+                'imgModel' => $imgModel,
+            ]);
+        } else {
+            $views = new Views();
+
+            if (!$views->countViews($id)) {
+                if ($model->user_id !== Yii::$app->user->identity->getId()) {
+                    $advert = new Advert();
+                    $advert->countViews($id);
+                    $views->advert_id = $id;
+                    $views->user_id = Yii::$app->user->identity->getId();
+                    $views->save();
+                }
+            }
+
+            return $this->render('view-adv', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -214,8 +209,6 @@ class AdvertController extends Controller
 
         $model = new Advert();
 
-
-
         if ($model->load(Yii::$app->request->post())) {
             if ($model->createAdvert()) {
                 return $this->redirect(['my-adverts']);
@@ -238,7 +231,7 @@ class AdvertController extends Controller
                 'catList' => $catList,
                 'subcatList' => $subcatList,
                 'regionList' => $regionList,
-                'cityList' => $cityList
+                'cityList' => $cityList,
             ]);
     }
 
