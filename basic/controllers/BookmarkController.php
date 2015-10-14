@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Bookmark;
 use app\models\BookmarkSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -117,5 +118,31 @@ class BookmarkController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAddToBookmarks($id)
+    {
+        $bookmark = new Bookmark();
+
+        if ($bookmark->find()->where(['user_id' => Yii::$app->user->identity->getId(), 'advert_id' => $id])) {
+            die;
+        } else {
+            $bookmark->user_id = Yii::$app->user->identity->getId();
+            $bookmark->advert_id = $id;
+            $bookmark->save();
+
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+        }
+    }
+
+    public function actionMyBookmarks()
+    {
+        $searchModel = new BookmarkSearch();
+        $dataProvider = $searchModel->getMyBookmarks();
+
+        return $this->render('my-bookmarks', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

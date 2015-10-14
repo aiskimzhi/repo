@@ -144,4 +144,11 @@ class Advert extends \yii\db\ActiveRecord
         }
         return null;
     }
+
+    public function countViews($id)
+    {
+        $advert = Advert::findOne(['id' => $id]);
+        $advert->views = $advert->views + 1;
+        $advert->save();
+    }
 }

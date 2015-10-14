@@ -62,4 +62,17 @@ class BookmarkSearch extends Bookmark
 
         return $dataProvider;
     }
+
+    public function getMyBookmarks()
+    {
+        $query = Bookmark::find()->andFilterWhere([
+            'user_id' => Yii::$app->user->identity->getId(),
+        ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
+    }
 }

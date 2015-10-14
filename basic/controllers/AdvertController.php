@@ -7,6 +7,7 @@ use app\models\City;
 use app\models\Region;
 use app\models\Subcategory;
 use app\models\User;
+use app\models\Views;
 use Yii;
 use app\models\Advert;
 use app\models\AdvertSearch;
@@ -79,6 +80,18 @@ class AdvertController extends Controller
     {
         $model = $this->findModel($id);
 
+        $views = new Views();
+
+        if (!$views->countViews($id)) {
+            if ($model->user_id !== Yii::$app->user->identity->getId()) {
+                $advert = new Advert();
+                $advert->countViews($id);
+                $views->advert_id = $id;
+                $views->user_id = Yii::$app->user->identity->getId();
+                $views->save();
+            }
+        }
+
         if ($model->user_id == Yii::$app->user->identity->getId()) {
             $buttons = [
                 Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']),
@@ -91,10 +104,19 @@ class AdvertController extends Controller
                 ]),
             ];
         } else {
+            $url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $id;
             $buttons = [
                 Html::button('Add to bookmarks', [
                     'type' => 'button',
-                    'class' => 'btn btn-info'
+                    'class' => 'btn btn-info',
+                    'onclick' => '
+                                $.ajax({
+                            url: "' . $url . '",
+                            success: function() {
+                                alert("This advert was added to your bookmarks");
+                            }
+                        });
+                    ',
                 ])
             ];
         }
