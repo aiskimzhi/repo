@@ -10,39 +10,34 @@ use yii\helpers\Url;
 $this->title = 'My Account';
 ?>
 
-<div class="user-view">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="account">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'first_name',
-            'last_name',
-            'email:email',
-            'skype',
-            'phone',
-        ],
-    ]) ?>
 
-    <p>
-        <?= Html::a('Update data', [Url::toRoute('user/update-data')], ['class' => 'btn btn-primary']) ?>
-
-        <?= Html::a('Change password', [Url::toRoute('user/change-password')], ['class' => 'btn btn-primary'])?>
-
+    <div id="left-menu">
+        <?= Html::a('My Adverts', [Url::toRoute('advert/my-adverts')], ['class' => 'btn btn-info my-200']) ?>
+        <?= Html::a('My Bookmarks', [Url::toRoute('bookmark/my-bookmarks')], ['class' => 'btn btn-info my-200'])?>
+        <?= Html::a('Update data', [Url::toRoute('user/update-data')], ['class' => 'btn btn-info my-200']) ?>
+        <?= Html::a('Change password', [Url::toRoute('user/change-password')], ['class' => 'btn btn-info my-200'])?>
         <?= Html::a('Delete account', ['delete-account'], [
-            'class' => 'btn btn-default',
+            'class' => 'btn btn-info my-200',
             'data' => [
                 'confirm' => 'Are you sure you want to delete your account?',
                 'method' => 'post',
             ],
         ]) ?>
+    </div>
 
-        <?= Html::a('Create Advert', [Url::toRoute('advert/create')], ['class' => 'btn btn-warning']) ?>
+    <div id="personal-info">
+        <h1><?= $model->getFullName()?></h1>
+        <p><em>My contacts: </em></p>
+        <p><strong>E-mail: </strong><?= $model->email ?></p>
+        <p><strong>Phone: </strong><?= $model->phone ?></p>
+        <p><strong>Skype: </strong><?= $model->skype ?></p>
+    </div>
 
-        <?= Html::a('My Adverts', [Url::toRoute('advert/my-adverts')], ['class' => 'btn btn-info']) ?>
+    <div id="create-adv">
+        <?= Html::a('Create Advert', [Url::toRoute('advert/create')], ['class' => 'btn btn-red btn-create btn-cr-adv']) ?>
+    </div>
 
-        <?= Html::a('My Bookmarks', [Url::toRoute('bookmark/my-bookmarks')], ['class' => 'btn btn-info'])?>
 
-
-    </p>
 </div>

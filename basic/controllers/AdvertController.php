@@ -58,8 +58,12 @@ class AdvertController extends Controller
                 'class' => 'btn btn-success',
                 'name' => 'search',
             ]);
+            $beforeValue = '';
+            $afterValue = '';
         } else {
             $submit = Html::a('New Search', [Url::toRoute('advert/index')], ['class' => 'btn btn-warning']);
+            $beforeValue = Yii::$app->request->get('before');
+            $afterValue = Yii::$app->request->get('after');
         }
 
         return $this->render('index', [
@@ -70,6 +74,8 @@ class AdvertController extends Controller
             'regionList' => $regionList,
             'cityList' => $cityList,
             'submit' => $submit,
+            'beforeValue' => $beforeValue,
+            'afterValue' => $afterValue,
         ]);
     }
 
@@ -145,6 +151,7 @@ class AdvertController extends Controller
             ->where(['region_id' => $model->region_id])
             ->asArray()->all(), 'id', 'name');
 
+        $model->updated_at = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

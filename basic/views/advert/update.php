@@ -53,6 +53,8 @@ echo $form->field($model, 'title')->textInput();
 
 echo $form->field($model, 'text')->textarea(['rows' => 6]);
 
+echo $form->field($model, 'price')->textInput();
+
 echo '<div class="form-group">' . Html::submitButton('Update Advert', ['class' => 'btn btn-primary']) . '</div>';
 
 ActiveForm::end();

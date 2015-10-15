@@ -11,13 +11,14 @@ use yii\widgets\DetailView;
 /* @var $user app\models\User */
 
 $this->title = 'Create Advert';
+?>
+<div>
 
-echo '<div>';
-
-    echo DetailView::widget([
+    <?= DetailView::widget([
     'model' => $user,
     'options' => [
         'width' => '300px',
+        'class' => 'contacts'
     ],
     'template' => '<tr><td max-width="150px"><strong>{label}</strong> {value}</td></tr>',
     'attributes' => [
@@ -43,14 +44,15 @@ echo '<div>';
             'value' => '',
         ],
     ]
-]);
+]) ?>
 
-echo '</div>';
-echo '<br>';
+</div>
+<br>
 
-$form = ActiveForm::begin(['id' => 'create-advert-form']);
+<?php $form = ActiveForm::begin(['id' => 'create-advert-form']); ?>
 
-echo $form->field($model, 'category_id')->dropDownList($catList,
+<div class="dropdown-create">
+<?= $form->field($model, 'category_id')->dropDownList($catList,
     [
         'prompt'   => '- Choose a Category -',
         'onchange' => '
@@ -61,16 +63,16 @@ echo $form->field($model, 'category_id')->dropDownList($catList,
                             }
                         });
                        '
-    ]);
+    ])->label(false) ?>
 
 
-echo $form->field($model, 'subcategory_id')
+<?= $form->field($model, 'subcategory_id')
     ->dropDownList(
         ['id' => '- Choose a Sub-category -'],
         [ 'disabled' => 'disabled']
-    );
+    )->label(false) ?>
 
-echo $form->field($model, 'region_id')->dropDownList($regionList,
+<?= $form->field($model, 'region_id')->dropDownList($regionList,
     [
         'prompt'   => '- Choose a Region -',
         'onchange' => '
@@ -81,25 +83,30 @@ echo $form->field($model, 'region_id')->dropDownList($regionList,
                             }
                         });
                        '
-    ]);
+    ])->label(false) ?>
 
 
-echo $form->field($model, 'city_id')
+<?= $form->field($model, 'city_id')
     ->dropDownList(
         ['id' => '- Choose a City -'],
         [ 'disabled' => 'disabled']
-    );
+    )->label(false) ?>
+</div>
 
-echo $form->field($model, 'title')->textInput();
+<div style="margin-left: 100px; margin-right: 100px">
+    <?= $form->field($model, 'title')->textInput() ?>
 
-echo $form->field($model, 'text')->textarea(['rows' => 6]);
+    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-echo $form->field($model, 'price')->textInput();
+    <?= $form->field($model, 'price')->textInput() ?>
+</div>
 
-$msg = 'You will be able to upload images after you finish creating your advert';
-echo Html::tag('div', $msg, ['class' => 'btn btn-primary']);
-echo '<br><br>';
+<div style="margin-left: 100px">
+<?php $msg = 'You will be able to upload images after you finish creating your advert'; ?>
+<?= Html::tag('div', $msg, ['class' => 'btn btn-info']) ?>
+<br><br>
 
-echo '<div class="form-group">' . Html::submitButton('Create Advert', ['class' => 'btn btn-success']) . '</div>';
+<?= '<div class="form-group">' . Html::submitButton('Create Advert', ['class' => 'btn btn-success']) . '</div>' ?>
+</div>
 
-ActiveForm::end();
+<?php ActiveForm::end(); ?>

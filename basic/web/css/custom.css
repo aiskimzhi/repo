@@ -1,0 +1,115 @@
+.my-form {
+    width: 33%;
+    margin-left: 10%;
+}
+
+.site-signup {
+    margin-left: 5%;
+}
+.my-left {
+    font: serif;
+    font-size: 20px;
+    margin-left: 120%;
+    margin-top: -100%;
+    width: 350px;
+}
+.site-login {
+    margin-left: 25%;
+    width: 33%;
+}
+.but {
+    width: 100%;
+}
+.dropdown-create {
+    width: 400px;
+    margin-left: 100px;
+}
+span {
+    color: #337ab7;
+}
+.my-200 {
+    width: 100%;
+    height: 36px;
+    color: #747474;
+    background-color: #fdfdf6;
+    border-color: #747474;
+}
+.my-200:hover,
+.my-200:focus,
+.my-200.focus,
+.my-200:active,
+.my-200.active,
+.open > .dropdown-toggle.my-200 {
+    color: #f3dc0f;
+    background-color: #000000;
+    border-color: #f3dc0f;
+}
+.position-1 {
+    position: absolute;
+    left: 100px;
+    top: 95px;
+}
+.position-2 {
+    position: absolute;
+    left: 300px;
+    top: 157px;
+    width: 400px;
+}
+.position-3 {
+    position: absolute;
+    left: 700px;
+    top: 157px;
+}
+#left-menu {
+    margin-left: 10%;
+    width: 20%;
+    margin-top: 30px;
+}
+#personal-info {
+    margin-left: 32%;
+    margin-top: -185px;
+}
+p {
+    height: 20px;
+}
+#create-adv {
+    margin-left: 10%;
+}
+h1 {
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+.btn-cr-adv {
+    margin-top: 10px;
+    width: 80%;
+    height: 80px;
+    font-size: 40px;
+    color: #f3dc0f;
+    background-color: #000000;
+    border-color: #f3dc0f;
+}
+.btn-create:hover,
+.btn-create:focus,
+.btn-create.focus,
+.btn-create:active,
+.btn-create.active,
+.open > .dropdown-toggle.btn-create {
+    color: #000000;
+    background-color: #f3dc0f;
+    border-color: #000000;
+}
+.btn-create {
+    color: #f3dc0f;
+    background-color: #000000;
+    border-color: #f3dc0f;
+}
+.sign-form {
+    width: 40%;
+    margin-left: 5%;
+}
+.info-left {
+    margin-left: 50%;
+    width: 30%;
+    margin-top: -550px;
+    font-size: 20px;
+}

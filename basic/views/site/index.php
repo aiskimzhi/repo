@@ -52,17 +52,17 @@ $this->title = 'My Yii Application';
 //        echo $k;
 
 
-        $path = 'img/page_10';
-        $open = opendir($path);
-        $files = readdir($open);
-        echo '<pre>';
-        $scan = scandir($path);
-        print_r(scandir($path));
-        $c = count($scan) - 2;
-        $d = 0 - $c;
-
-        $n = array_splice($scan, 2, $c);
-        print_r($n);
+//        $path = 'img/page_10';
+//        $open = opendir($path);
+//        $files = readdir($open);
+//        echo '<pre>';
+//        $scan = scandir($path);
+//        print_r(scandir($path));
+//        $c = count($scan) - 2;
+//        $d = 0 - $c;
+//
+//        $n = array_splice($scan, 2, $c);
+//        print_r($n);
 
 //
 //        $substr = substr($file, -6, 2);

@@ -17,29 +17,6 @@ echo '<div class="advert-index">';
      // echo $this->render('_search', ['model' => $searchModel]);
 
 $form = ActiveForm::begin(['id' => 'form-dropdown-search', 'method' => 'get']);
-echo '<div class="form-inline">';
-echo $form->field($searchModel, 'category_id')->dropDownList($catList,
-    [
-        'prompt'   => '- Choose a Category -',
-        'onchange' => '
-                        $.ajax({
-                            url: "' . Url::toRoute('get-subcat?id=') . '" + $(this).val(),
-                            success: function( data ) {
-                                $( "#' . Html::getInputId($searchModel, 'subcategory_id') . '" ).html( data ).attr("disabled", false);
-                            }
-                        });
-                       '
-    ]);
-echo '</div>';
-
-echo '<div class="form-inline">';
-echo $form->field($searchModel, 'subcategory_id')
-    ->dropDownList($subcatList, [
-        'value' => 'null',
-        'prompt' => '- Choose a Subcategory -',
-        'disabled' => 'disabled',
-    ]);
-echo '</div>';
 
 echo '<div class="form-inline">';
 echo $form->field($searchModel, 'region_id')->dropDownList($regionList,
@@ -54,9 +31,7 @@ echo $form->field($searchModel, 'region_id')->dropDownList($regionList,
                         });
                        '
     ]);
-echo '</div>';
 
-echo '<div class="form-inline">';
 echo $form->field($searchModel, 'city_id')
     ->dropDownList($cityList, [
         'value' => 'null',
@@ -65,12 +40,34 @@ echo $form->field($searchModel, 'city_id')
     ]);
 echo '</div>';
 
-echo '<label class="control-label" for="before-field">Choose a period</label><br>';
+echo '<div class="form-inline">';
+echo $form->field($searchModel, 'category_id')->dropDownList($catList,
+    [
+        'prompt'   => '- Choose a Category -',
+        'onchange' => '
+                        $.ajax({
+                            url: "' . Url::toRoute('get-subcat?id=') . '" + $(this).val(),
+                            success: function( data ) {
+                                $( "#' . Html::getInputId($searchModel, 'subcategory_id') . '" ).html( data ).attr("disabled", false);
+                            }
+                        });
+                       '
+    ]);
+
+echo $form->field($searchModel, 'subcategory_id')
+    ->dropDownList($subcatList, [
+        'value' => 'null',
+        'prompt' => '- Choose a Subcategory -',
+        'disabled' => 'disabled',
+    ]);
+echo '</div>';
+
+echo '<label class="control-label" for="before-field">Choose period: </label><br>';
 echo '<div class="form-inline">';
 echo '<label class="control-label" for="before-field">From: </label>';
-echo DatePicker::widget(['name' => 'before', 'id' => 'before-field', 'options' => ['class' => 'form-control']]);
+echo DatePicker::widget(['value' => $beforeValue, 'name' => 'before', 'id' => 'before-field', 'options' => ['class' => 'form-control']]);
 echo '<label class="control-label" for="after-field">To: </label>';
-echo DatePicker::widget(['name' => 'after', 'id' => 'after-field', 'options' => ['class' => 'form-control']]);
+echo DatePicker::widget(['value' => $afterValue, 'name' => 'after', 'id' => 'after-field', 'options' => ['class' => 'form-control']]);
 echo '</div>';
 
 echo '<br>';

@@ -19,8 +19,7 @@ echo '<h2>' . $model->title . '</h2>';
 
 echo '<h4>' . $model->region->name . ', ' . $model->city->name . '</h4>';
 
-$format = 'd M Y, H:i';
-echo 'Last update: ' . date($format, $model->updated_at);
+echo 'Last update: ' . date(Yii::$app->params['dateFormat'], $model->updated_at);
 
 echo '<div>';
 $pics = $model->renderAllPics($model->id);

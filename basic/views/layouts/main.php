@@ -21,6 +21,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link href="/css/custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -65,15 +66,15 @@ AppAsset::register($this);
         <?= AlertWidget::widget() ?>
         <?= $content ?>
     </div>
-
+<div class="my-pre">
     <?php
-        echo '<pre>';
-        echo '<b>$_POST: </b>';
-        print_r($_POST);
-        echo '<b>$_GET: </b>';
-        print_r($_GET);
+//        echo '<pre class="my-pre">';
+//        echo '<b>$_POST: </b>';
+//        print_r($_POST);
+//        echo '<b>$_GET: </b>';
+//        print_r($_GET);
     ?>
-
+</div>
 </div>
 
 
