@@ -44,22 +44,6 @@ span {
     background-color: #000000;
     border-color: #f3dc0f;
 }
-.position-1 {
-    position: absolute;
-    left: 100px;
-    top: 95px;
-}
-.position-2 {
-    position: absolute;
-    left: 300px;
-    top: 157px;
-    width: 400px;
-}
-.position-3 {
-    position: absolute;
-    left: 700px;
-    top: 157px;
-}
 #left-menu {
     margin-left: 10%;
     width: 20%;
@@ -112,4 +96,41 @@ h1 {
     width: 30%;
     margin-top: -550px;
     font-size: 20px;
+}
+.lab {
+    position: relative;
+    float: left;
+    width: 25%;
+    margin-left: 10%;
+}
+.input {
+    width: 90%;
+    margin-left: 41%;
+}
+.update-but {
+    margin-left: -2.67%;
+    width: 106%;
+}
+#labels {
+    width: 20%;
+}
+#update-inputs {
+    width: 59%;
+    margin-left: 24%;
+    margin-top: -300px;
+}
+#left-labels {
+    width: 20%;
+}
+.labels-p {
+    width: 100%;
+    text-align: right;
+    height: 20px;
+    margin-top: 7px;
+    margin-bottom: 29px;
+}
+#h2-update {
+    margin-left: 24%;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
