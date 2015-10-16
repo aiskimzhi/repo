@@ -141,12 +141,12 @@ class UserController extends Controller
             Yii::$app->session->setFlash('success', 'Your data was changed successfully');
             return $this->redirect('account');
         } elseif (!($model->load(Yii::$app->request->post()) && $model->save()) && empty($_POST)) {
-            return $this->render('update', [
+            return $this->render('up', [
                 'model' => $model,
             ]);
         } else {
             Yii::$app->session->setFlash('error', 'Your data was not changed successfully');
-            return $this->render('update', [
+            return $this->render('up', [
                 'model' => $model,
             ]);
         }
