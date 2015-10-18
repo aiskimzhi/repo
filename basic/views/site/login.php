@@ -31,4 +31,4 @@ $this->title = 'Login';
 
     <?= Html::a('Forgot password?', ['site/send-email']) ?>
 
-</div>
+</div>g
