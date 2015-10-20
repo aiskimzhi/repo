@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Bookmark;
 use app\models\Category;
 use app\models\City;
+use app\models\Pictures;
 use app\models\Region;
 use app\models\Subcategory;
 use app\models\UploadForm;
@@ -87,9 +89,11 @@ class AdvertController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $pic = new Pictures();
+        $imgModel = new UploadForm();
 
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-            $imgModel = new UploadForm();
+
 
             if (isset($_POST['delete'])) {
                 $model->deletePic();
@@ -101,6 +105,7 @@ class AdvertController extends Controller
                     return $this->render('view-my-advert', [
                         'model' => $this->findModel($id),
                         'imgModel' => $imgModel,
+                        'pic' => $pic,
                     ]);
                 }
             }
@@ -108,6 +113,7 @@ class AdvertController extends Controller
             return $this->render('view-my-advert', [
                 'model' => $this->findModel($id),
                 'imgModel' => $imgModel,
+                'pic' => $pic,
             ]);
         } else {
             $views = new Views();
@@ -124,6 +130,8 @@ class AdvertController extends Controller
 
             return $this->render('view-adv', [
                 'model' => $this->findModel($id),
+                'pic' => $pic,
+                'imgModel' => $imgModel,
             ]);
         }
     }

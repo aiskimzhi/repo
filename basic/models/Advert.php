@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\bootstrap\Carousel;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\web\UploadedFile;
 use yii\base\Model;
@@ -182,5 +184,73 @@ class Advert extends \yii\db\ActiveRecord
     public function deletePic()
     {
         unlink('img/page_' . $_GET['id'] . '/' . $_POST['delete']);
+    }
+
+    public function th()
+    {
+        $th = '<div class="mask-wrapper">';
+        $th .= '<div class="mask">';
+        $th .= '<button class="btn btn-success">Choose a File</button>';
+        $th .= '<input class="fileInputText form-hide" type="text" disabled>';
+        $th .= '<input type="submit" name="add" class="btn btn-success" value="Add +">';
+        $th .= '</div><input id="my_file" class="custom-file-input" type="file" name="my_file"></div>';
+        return $th;
+    }
+
+    public function lineOne($id)
+    {
+        $line = '<tr>';
+        for ($i = 2; $i < count(scandir('img/page_' . $id)); $i++) {
+            $line .= '<td style="text-align: right; max-width: 130px; border: solid; border-color: #c0c0c0; border-width: thin">';
+            $line .= '<img src="http://app.dev/img/page_' . $id . '/' . scandir('img/page_' . $id)[$i] . '" style="width: 120px; max-height: 120px; min-height: 120px">';
+            $line .= '<br><br><br>';
+            $line .= Html::button('<span class="glyphicon glyphicon-remove"></span>', [
+                'style' => 'vertical-align="bottom"'
+            ]);
+            $line .= '</td>';
+        }
+        $line .= '</tr>';
+        return $line;
+    }
+
+    public function renderGallery($id)
+    {
+        if (file_exists('img/page_' . $id) && count(scandir('img/page_' . $id)) > 2) {
+            if (Yii::$app->user->identity->getId() == $id) {
+                $gallery = '<table></table>';
+                return $gallery;
+            } else {
+                $gallery = '<table></table>';
+                return $gallery;
+            }
+        }
+        return null;
+    }
+
+    public function modal($id, $pic)
+    {
+        Modal::begin([
+            'header' => 'Picture',
+            'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
+        ]);
+
+        echo Html::img('http://app.dev/img/page_' . $id . '/' . $pic, ['style' => 'width:120px;', 'class' => 'img-thumbnail']);
+
+        Modal::end();
+    }
+
+    public function carousel($id)
+    {
+        if (file_exists('img/page_' . $id) && count(scandir('img/page_' . $id)) > 2) {
+            $items = [];
+            for ($i = 2; $i < count(scandir('img/page_' . $id)); $i++) {
+                $n = $i - 2;
+                $items[$n] = '<img src="/img/page_' . $id . '/' . scandir('img/page_1')[$i] . '">';
+            }
+            return Carousel::widget([
+                'items' => $items
+            ]);
+        }
+        return null;
     }
 }

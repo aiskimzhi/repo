@@ -66,17 +66,14 @@ AppAsset::register($this);
         <?= AlertWidget::widget() ?>
         <?= $content ?>
     </div>
-<div class="my-pre">
-    <?php
-//        echo '<pre class="my-pre">';
-//        echo '<b>$_POST: </b>';
-//        print_r($_POST);
-//        echo '<b>$_GET: </b>';
-//        print_r($_GET);
-    ?>
-</div>
 </div>
 
+<pre>
+    POST:
+    <?php print_r($_POST); ?>
+    GET:
+    <?php print_r($_GET); ?>
+</pre>
 
 
 <footer class="footer">
@@ -88,6 +85,7 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script src="/css/custom.js" type="text/javascript"></script>
 </body>
 </html>
 <?php $this->endPage() ?>

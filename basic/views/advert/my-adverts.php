@@ -27,7 +27,9 @@ echo GridView::widget([
             'label' => 'image',
             'format' => 'raw',
             'value' => function($searchModel) {
-                return Html::img(Yii::$app->urlManager->createAbsoluteUrl($searchModel->picture($searchModel->id)));
+                return Html::img(Yii::$app->urlManager->createAbsoluteUrl($searchModel->picture($searchModel->id)), [
+                    'style' => 'max-width: 120px;'
+                ]);
             },
             'options' => ['style' => 'width: 130px; max-width: 130px;'],
         ],

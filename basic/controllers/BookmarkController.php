@@ -123,15 +123,17 @@ class BookmarkController extends Controller
     public function actionAddToBookmarks($id)
     {
         $bookmark = new Bookmark();
+        $n = Bookmark::find()->where(['user_id' => Yii::$app->user->identity->getId(), 'advert_id' => $id])->all();
 
-        if ($bookmark->find()->where(['user_id' => Yii::$app->user->identity->getId(), 'advert_id' => $id])) {
-            die;
+//        var_dump(!empty($n)); die;
+        if (!empty($n)) {
+            echo Json::encode([]);
         } else {
             $bookmark->user_id = Yii::$app->user->identity->getId();
             $bookmark->advert_id = $id;
             $bookmark->save();
 
-            echo Json::encode(['output'=>'', 'selected'=>'']);
+            echo Json::encode([]);
         }
     }
 
