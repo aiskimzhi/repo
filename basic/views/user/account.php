@@ -36,7 +36,7 @@ $this->title = 'My Account';
     </div>
 
     <div id="create-adv">
-        <?= Html::a('Create Advert', [Url::toRoute('advert/create')], ['class' => 'btn btn-red btn-create btn-cr-adv']) ?>
+        <?= Html::a('Create Advert', [Url::toRoute('advert/create')], ['class' => 'btn btn-create btn-cr-adv']) ?>
     </div>
 
 

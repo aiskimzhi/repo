@@ -51,7 +51,7 @@ echo '</div>';
 ?>
 
 <div id="for-table">
-<table style="max-width: 650px;">
+<table style="max-width: 650px; <?= $pic->visibility($model->id)[0] ?>;">
 <tr id="header-line" style="height: 50px; max-height: 50px;">
     <td colspan="5" style="height: 50px; max-height: 50px; min-width: 400px;">
         <div style="position: relative; margin-left: 20px; margin-top: 20px; max-height: 40px;">

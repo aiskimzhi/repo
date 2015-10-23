@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Advert;
 use app\models\UploadForm;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
@@ -14,8 +15,10 @@ $id = 12;
 $pic = new Pictures();
 
 echo '<pre>';
-print_r($pic->value($id));
+echo 'COOKIES: <br>';
+print_r($_COOKIE);
 echo '</pre>';
+//setcookie('views[11]', "");
 ?>
 
 <div id="for-table">
@@ -47,7 +50,10 @@ echo '</pre>';
                     <div style="position: relative; width: 30px; height: 30px;">
                         <?php Modal::begin([
                             'header' => 'Picture',
-                            'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
+                            'toggleButton' => [
+                                'label' => '<span class="glyphicon glyphicon-search" style="color: #f3dc0f; background-color: #000000;"></span>',
+                                'style' => 'background-color: #000000; border-color: #f3dc0f;',
+                            ],
                         ]);
 
                         $items = $pic->carouselItems(0, $id);
@@ -60,9 +66,9 @@ echo '</pre>';
 
                     <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
                         <?php $value = $pic->value($id)[0]; ?>
-                        <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
+                        <?php $span = '<span class="glyphicon glyphicon-remove" style="color: #f3dc0f; background-color: #000000;"></span>'; ?>
                         <form action="" method="post" style="position: relative">
-                            <?= Html::submitButton($span, ['name' => 'delete', 'value' => $value]) ?>
+                            <?= Html::submitButton($span, ['name' => 'delete', 'value' => $value, 'style' => 'background-color: #000000; border-color: #f3dc0f;']) ?>
                         </form>
                     </div>
                 </div>
@@ -305,9 +311,9 @@ echo '</pre>';
 
                     <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
                         <?php $value = $pic->value($id)[9]; ?>
-                        <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
+                        <?php $span = '<span class="glyphicon glyphicon-remove" style="color: #f3dc0f; background-color: #000000;"></span>'; ?>
                         <form action="" method="post" style="position: relative">
-                            <?= Html::submitButton($span, ['name' => 'delete', 'value' => $value]) ?>
+                            <?= Html::submitButton($span, ['name' => 'delete', 'value' => $value, 'style' => 'background-color: #000000; border-color: #f3dc0f;']) ?>
                         </form>
                     </div>
                 </div>
@@ -315,3 +321,7 @@ echo '</pre>';
         </tr>
     </table>
 </div>
+
+<br><br><br><br>
+<?php $s = '<span class="glyphicon glyphicon-search" style="color: #f3dc0f; background-color: #000000;"></span>'; ?>
+<?= Html::submitButton($s, ['name' => 'delete', 'value' => $value, 'style' => 'background-color: #000000; border-color: #f3dc0f;']) ?>

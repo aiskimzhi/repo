@@ -12,37 +12,30 @@ use yii\widgets\DetailView;
 /* @var $buttons */
 
 $this->title = $model->title;
-
-echo '<div class="advert-view">';
-
-echo '<div><h4>' . $model->category->name . ' » ' . $model->subcategory->name . '</h4></div>';
-
-echo '<h2>' . $model->title . '</h2>';
-
-echo '<h4>' . $model->region->name . ', ' . $model->city->name . '</h4>';
-
-echo 'Last update: ' . date(Yii::$app->params['dateFormat'], $model->updated_at);
-
-//echo '<div>';
-//$pics = $model->renderAllPics($model->id);
-//foreach ($pics as $pic) {
-//    echo Html::img(Yii::$app->urlManager->createAbsoluteUrl('img/page_' . $model->id . '/' . $pic));
-//}
-//echo '</div>';
-
-echo '<div>';
-echo $model->text;
-echo '</div>';
 ?>
+<div class="advert-view">
 
-    <div id="for-table">
-    <table style="max-width: 650px;">
+<div><h4><?= $model->category->name ?>  » <?= $model->subcategory->name ?></h4></div>
+
+<h2><strong><?= $model->title ?></strong></h2>
+
+<h4><?= $model->region->name ?>, <?= $model->city->name ?></h4>
+
+<p><em>Last update: <?= date(Yii::$app->params['dateFormat'], $model->updated_at) ?></em></p>
+
+<div>
+    <?= $model->text ?>
+</div>
+
+
+<div id="for-table">
+<table style="max-width: 650px; <?= $pic->visibility($model->id)[0] ?>;">
     <tr id="line-one" style="min-height: 189px; height: 189px;">
         <td style="<?= $pic->visibility($model->id)[0] ?>; text-align: right; max-width: 130px; border: solid; border-color: #c0c0c0; border-width: thin">
             <?= $pic->image($model->id)[0] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -56,7 +49,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[0]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -69,7 +62,7 @@ echo '</div>';
             <?= $pic->image($model->id)[1] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -83,7 +76,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[1]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -96,7 +89,7 @@ echo '</div>';
             <?= $pic->image($model->id)[2] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -110,7 +103,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[2]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -123,7 +116,7 @@ echo '</div>';
             <?= $pic->image($model->id)[3] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -137,7 +130,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[3]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -150,7 +143,7 @@ echo '</div>';
             <?= $pic->image($model->id)[4] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -164,7 +157,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[4]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -179,7 +172,7 @@ echo '</div>';
             <?= $pic->image($model->id)[5] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -193,7 +186,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[5]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -206,7 +199,7 @@ echo '</div>';
             <?= $pic->image($model->id)[6] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -220,7 +213,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[6]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -233,7 +226,7 @@ echo '</div>';
             <?= $pic->image($model->id)[7] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -247,7 +240,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[7]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -260,7 +253,7 @@ echo '</div>';
             <?= $pic->image($model->id)[8] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -274,7 +267,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[8]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -287,7 +280,7 @@ echo '</div>';
             <?= $pic->image($model->id)[9] ?>
             <br><br><br>
             <div>
-                <div style="position: relative; width: 30px; height: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-left: 60px;">
                     <?php Modal::begin([
                         'header' => 'Picture',
                         'toggleButton' => ['label' => '<span class="glyphicon glyphicon-eye-open"></span>'],
@@ -301,7 +294,7 @@ echo '</div>';
                     Modal::end(); ?>
                 </div>
 
-                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 30px;">
+                <div style="position: relative; width: 30px; height: 30px; margin-top: -30px; margin-left: 90px;">
                     <?php $value = $pic->value($model->id)[9]; ?>
                     <?php $span = '<span class="glyphicon glyphicon-remove"></span>'; ?>
                     <form action="" method="post" style="position: relative">
@@ -311,23 +304,23 @@ echo '</div>';
             </div>
         </td>
     </tr>
-    </table>
-    </div>
-    <br><br>
-
-<?php
-
-echo 'Contact the author: <br>';
-echo 'E-mail: ' . $model->user->email . '<br>';
-echo 'Phone: ' . $model->user->phone . '<br>';
-echo 'Skype: ' . $model->user->skype . '<br>';
+</table>
+</div>
+<br><br>
 
 
-echo '<p>';
-$url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $model->id;
-echo Html::button('Add to bookmarks', [
+
+<p><em>Contact the author: </em></p>
+<p><strong>E-mail: </strong> <?= $model->user->email ?></p>
+<p><strong>Phone: </strong> <?= $model->user->phone ?></p>
+<p><strong>Skype: </strong> <?= $model->user->skype ?></p>
+
+
+<p>
+<?php $url = Url::toRoute('bookmark/add-to-bookmarks?id=') . $model->id; ?>
+<?= Html::button('Add to bookmarks', [
     'type' => 'button',
-    'class' => 'btn btn-info',
+    'class' => 'btn btn-create',
     'onclick' => '
                                 $.ajax({
                             url: "' . $url . '",
@@ -336,8 +329,14 @@ echo Html::button('Add to bookmarks', [
                             }
                         });
                     ',
-]);
-echo '</p>';
+]) ?>
+</p>
 
-echo '</div>';
+</div>
+
+<?php
+setcookie('views[1]', "");
+echo '<pre>';
+print_r($_COOKIE);
+echo '</pre>';
 

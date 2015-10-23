@@ -47,23 +47,35 @@ class AdvertController extends Controller
      */
     public function actionIndex()
     {
+        $disabled_subcat = 'disabled';
+        $disabled_city = 'disabled';
         $searchModel = new AdvertSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $catList = ArrayHelper::map(Category::find()->asArray()->all(), 'id', 'name');
-        $subcatList = ArrayHelper::map(Subcategory::find()->asArray()->all(), 'id', 'name');
         $regionList = ArrayHelper::map(Region::find()->asArray()->all(), 'id', 'name');
-        $cityList = ArrayHelper::map(City::find()->asArray()->all(), 'id', 'name');
+        $subcatList = [];
+        $cityList = [];
 
-        if (Yii::$app->request->get() == null) {
-            $submit = Html::submitButton('Search', [
-                'class' => 'btn btn-success',
-                'name' => 'search',
-            ]);
+        if (Yii::$app->request->get('search') == 'search'
+            && Yii::$app->request->get('AdvertSearch')['category_id'] !== '') {
+            $subcatList = ArrayHelper::map(Subcategory::find()
+                ->where(['category_id' => Yii::$app->request->get('AdvertSearch')['category_id']])
+                ->asArray()->all(), 'id', 'name');
+            $disabled_subcat = false;
+        }
+        if (Yii::$app->request->get('search') == 'search'
+            && Yii::$app->request->get('AdvertSearch')['region_id'] !== '') {
+            $cityList = ArrayHelper::map(City::find()
+                ->where(['region_id' => Yii::$app->request->get('AdvertSearch')['region_id']])
+                ->asArray()->all(), 'id', 'name');
+            $disabled_city = false;
+        }
+
+        if (Yii::$app->request->get() == null || Yii::$app->request->get('period') == 'period') {
             $beforeValue = '';
             $afterValue = '';
         } else {
-            $submit = Html::a('New Search', [Url::toRoute('advert/index')], ['class' => 'btn btn-warning']);
             $beforeValue = Yii::$app->request->get('before');
             $afterValue = Yii::$app->request->get('after');
         }
@@ -75,9 +87,10 @@ class AdvertController extends Controller
             'subcatList' => $subcatList,
             'regionList' => $regionList,
             'cityList' => $cityList,
-            'submit' => $submit,
             'beforeValue' => $beforeValue,
             'afterValue' => $afterValue,
+            'disabled_subcat' => $disabled_subcat,
+            'disabled_city' => $disabled_city,
         ]);
     }
 
@@ -93,7 +106,6 @@ class AdvertController extends Controller
         $imgModel = new UploadForm();
 
         if ($model->user_id == Yii::$app->user->identity->getId()) {
-
 
             if (isset($_POST['delete'])) {
                 $model->deletePic();
@@ -261,7 +273,7 @@ class AdvertController extends Controller
             ->orderBy('id ASC')
             ->all();
 
-        if($countSubcats>0){
+        if ($countSubcats > 0){
             echo '<option value="" selected="">- Choose a Subcategory -</option>';
             foreach($subcats as $subcat){
                 echo "<option value='".$subcat->id."'>".$subcat->name."</option>";
