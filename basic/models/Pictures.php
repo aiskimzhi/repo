@@ -61,12 +61,13 @@ class Pictures extends Advert
      * @return array
      * returns items of carousel for a certain image
      */
-    public function carouselItems($i, $id)
+    public function carouselItems($id)
     {
         $items = [];
-        $arr1 = array_splice($this->imgList($id), $i);
-        $arr2 = array_splice($this->imgList($id), 0, $i);
-        $array = array_merge($arr1, $arr2);
+        $array = $this->imgList($id);
+//        $arr1 = array_splice($this->imgList($id), $i);
+//        $arr2 = array_splice($this->imgList($id), 0, $i);
+//        $array = array_merge($arr1, $arr2);
 
         for ($i = 0; $i < count($array); $i++) {
             $img[$i] =  '/img/page_' . $id . '/' . $array[$i];
